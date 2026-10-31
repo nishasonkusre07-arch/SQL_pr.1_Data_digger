@@ -1,213 +1,267 @@
-# 🧠📊 DATA DIGGER — SQL Database Project
+# 🗃️ Data Digger --- SQL Database Management Project
 
-> 🗄️ A beginner-friendly SQL database project using MySQL to manage customers, orders, products, and order details.
+> **Explore data. Organize records. Discover insights.**\
+> A MySQL project demonstrating relational database management through
+> customer, order, product, and order-detail data.
 
----
+------------------------------------------------------------------------
 
-## 🌟 Project Overview
+## 📌 Project Overview
 
-**Data Digger** is a database management project developed using SQL. It helps store and manage customer information, order records, product details, and order transactions.
+**Data Digger** is a database project developed using **MySQL**. It
+provides a structured way to store and work with customer information,
+customer orders, product details, and the products included in each
+order.
 
-This project demonstrates important SQL concepts such as database creation, table creation, primary keys, foreign keys, data insertion, data retrieval, updating, deleting, sorting, filtering, and aggregate functions.
-
----
+The project is designed to practice essential SQL concepts through a
+practical example. It includes database and table creation, sample data
+insertion, data modification, filtering, sorting, aggregate
+calculations, and joins between related tables.
 
 ## 🎯 Project Objectives
 
-- 🏗️ Create a database named `Data_Digger`.
-- 👥 Store customer information.
-- 🛒 Manage customer orders.
-- 📦 Maintain product details and stock.
-- 🧾 Store order details, quantities, and subtotals.
-- 🔍 Retrieve records using SQL queries.
-- ✏️ Perform INSERT, UPDATE, and DELETE operations.
-- 📈 Analyze data using aggregate functions.
+-   👥 Maintain customer information in a structured format
+-   🧾 Store and retrieve customer order records
+-   📦 Manage product names, prices, and stock quantities
+-   🛒 Record products and quantities associated with each order
+-   🔗 Connect related tables using primary and foreign keys
+-   📊 Analyze order and product data using SQL queries
+-   🧠 Build confidence with MySQL commands and relational database
+    concepts
 
----
+## 🧰 Technologies Used
 
-## 🛠️ Technologies Used
+  Technology           Purpose
+  -------------------- -----------------------------------------------------------
+  🐬 MySQL             Creating and managing the relational database
+  🖥️ MySQL Workbench   Writing and executing SQL queries
+  🧾 SQL               Defining tables, manipulating records, and analyzing data
 
-- 💻 **Database:** MySQL
-- 🗃️ **Language:** SQL
-- ⚙️ **Concepts:** DDL, DML, Primary Key, Foreign Key, Aggregate Functions
+## 🗂️ Database Information
 
----
+-   **Database Name:** `data_digger`
+-   **Database Type:** Relational Database
+-   **Tables:** 4
+-   **Primary Language:** SQL
 
-## 🗂️ Database Structure
+## 🧱 Database Tables
 
-This project contains **4 main tables**:
+### 1. 👥 Customers
 
-| No. | Table Name | Description |
-|---|---|---|
-| 1️⃣ | `customers` | Stores customer ID, name, email, and address. |
-| 2️⃣ | `orders` | Stores order ID, customer ID, order date, and total amount. |
-| 3️⃣ | `products` | Stores product ID, product name, price, and stock. |
-| 4️⃣ | `order_details` | Stores order details, product ID, quantity, and subtotal. |
+Stores basic customer details.
 
----
+  Column         Description
+  -------------- --------------------------------------------
+  `CustomerID`   Unique customer identifier and primary key
+  `Name`         Customer name
+  `Email`        Customer email address
+  `Address`      Customer location/address
 
-## 🔗 Table Relationships
+### 2. 🧾 Orders
 
-- 👤 One customer can have multiple orders.
-- 🛒 An order can contain multiple order-detail records.
-- 📦 A product can appear in multiple order-detail records.
-- 🔐 `Customer_id` is the Primary Key in the Customers table.
-- 🔐 `order_id` is the Primary Key in the Orders table.
-- 🔐 `product_id` is the Primary Key in the Products table.
-- 🔗 Foreign Keys connect the related tables.
+Stores order information for customers.
 
-### 🧩 Relationship Diagram
+  Column          Description
+  --------------- --------------------------------------------
+  `OrderID`       Unique order identifier and primary key
+  `CustomerID`    Customer who placed the order; foreign key
+  `OrderDate`     Date the order was placed
+  `TotalAmount`   Total amount recorded for the order
 
-```text
-CUSTOMERS
-    |
-    | Customer_id
-    |
-    v
- ORDERS
-    |
-    | order_id
-    |
-    v
-ORDER_DETAILS
-    ^
-    |
-    | product_id
-    |
- PRODUCTS
+### 3. 📦 Products
+
+Stores product and inventory information.
+
+  Column          Description
+  --------------- -------------------------------------------
+  `ProductID`     Unique product identifier and primary key
+  `ProductName`   Name of the product
+  `Price`         Product price
+  `Stock`         Available stock quantity
+
+### 4. 🛍️ OrderDetails
+
+Stores the products and quantities associated with orders.
+
+  Column            Description
+  ----------------- ------------------------------------------------
+  `OrderDetailID`   Unique order-detail identifier and primary key
+  `OrderID`         Related order; foreign key
+  `ProductID`       Related product; foreign key
+  `Quantity`        Number of units ordered
+  `SubTotal`        Subtotal recorded for the order-detail row
+
+## 🔗 Entity Relationships
+
+The database connects its tables through key constraints:
+
+-   `Customers` → `Orders`: one customer can be associated with multiple
+    orders.
+-   `Orders` → `OrderDetails`: one order can contain multiple
+    order-detail records.
+-   `Products` → `OrderDetails`: a product can appear in multiple
+    order-detail records.
+
+``` text
+Customers
+   │
+   └── CustomerID
+          │
+          ▼
+        Orders
+          │
+          └── OrderID
+                 │
+                 ▼
+             OrderDetails
+                 ▲
+                 │ ProductID
+              Products
 ```
 
----
+**Primary Keys (PK)** uniquely identify records. **Foreign Keys (FK)**
+connect records across related tables and help maintain referential
+integrity.
 
-## 📋 SQL Queries Covered
+## 🛠️ SQL Concepts Demonstrated
 
-### 👥 1. Customers Table
+### 🏗️ Database and Table Creation
 
-- 📄 Retrieve all customer details.
-- ✏️ Update a customer's address.
-- 🗑️ Delete a customer using Customer ID.
-- 🔍 Display customers whose name is Sumit.
+-   `CREATE DATABASE`
+-   `USE`
+-   `CREATE TABLE`
+-   `PRIMARY KEY`
+-   `FOREIGN KEY`
 
-### 🛒 2. Orders Table
+### ✍️ Data Manipulation
 
-- ➕ Insert at least 5 sample orders.
-- 🔍 Retrieve orders made by a specific customer.
-- ✏️ Update an order's total amount.
-- 🗑️ Understand how to delete an order.
-- 📅 Retrieve orders placed in the last 30 days.
-- 📊 Find the highest, lowest, and average order amount.
+-   `INSERT INTO` --- add records
+-   `UPDATE` --- modify existing records
+-   `DELETE` --- remove selected records
 
-### 📦 3. Products Table
+### 🔍 Data Retrieval
 
-- ➕ Insert at least 5 sample products.
-- 🔽 Display products in descending order of price.
-- ✏️ Update the price of a specific product.
-- 🗑️ Delete products that are out of stock.
-- 💰 Retrieve products whose price is between 500 and 20,000.
-- 📈 Find the most expensive and cheapest product.
+-   `SELECT`
+-   `WHERE`
+-   `BETWEEN`
+-   `ORDER BY`
+-   `LIMIT`
 
-### 🧾 4. Order Details Table
+### 📈 Aggregate Functions
 
-- ➕ Insert at least 5 sample records.
-- 🔍 Retrieve details for a specific order.
-- 💵 Calculate total revenue using SUM().
-- 🏆 Retrieve the top 3 most ordered products.
-- 🔢 Count how many times a specific product has been sold.
+-   `MAX()` --- find the maximum value
+-   `MIN()` --- find the minimum value
+-   `AVG()` --- calculate an average
+-   `SUM()` --- calculate a total
+-   `COUNT()` --- count matching records
 
----
+### 🧩 Grouping and Joining
 
-## 🧠 SQL Concepts Practiced
+-   `GROUP BY` --- summarize records by category or identifier
+-   `JOIN` --- retrieve related information from multiple tables
 
-| SQL Command / Function | Purpose |
-|---|---|
-| `CREATE DATABASE` | Creates a database. |
-| `CREATE TABLE` | Creates a table. |
-| `PRIMARY KEY` | Uniquely identifies each record. |
-| `FOREIGN KEY` | Connects related tables. |
-| `INSERT INTO` | Inserts new records. |
-| `SELECT` | Retrieves data. |
-| `UPDATE` | Modifies existing records. |
-| `DELETE` | Deletes records. |
-| `WHERE` | Filters records. |
-| `ORDER BY` | Sorts records. |
-| `BETWEEN` | Filters a range of values. |
-| `MAX()` | Finds the maximum value. |
-| `MIN()` | Finds the minimum value. |
-| `AVG()` | Calculates the average. |
-| `SUM()` | Calculates the total. |
-| `COUNT()` | Counts records. |
-| `GROUP BY` | Groups records. |
-| `LIMIT` | Limits the number of results. |
-| `INTERVAL` | Works with date ranges. |
+### 📅 Date Filtering
 
----
+-   `CURDATE()`
+-   `INTERVAL`
+-   Date comparison conditions
+
+## 📊 Query Examples Included
+
+The SQL file includes queries to:
+
+-   Display all customer, order, product, and order-detail records
+-   Find a customer by name
+-   Update a customer's address
+-   Retrieve orders for a specific customer
+-   Update an order amount
+-   Delete a selected order
+-   Filter recent orders using a date condition
+-   Calculate highest, lowest, and average order amounts
+-   Display products sorted by price
+-   Update a product's price
+-   Delete products with zero stock
+-   Find products within a price range
+-   Calculate total revenue from order-detail subtotals
+-   Find the top three products by ordered quantity
+-   Count how many times a product appears in order details
+-   Join customer information with order information
+-   Join product information with order-detail records
 
 ## 🚀 How to Run the Project
 
-1. 💻 Open MySQL Workbench.
-2. 📂 Open your SQL project file.
-3. ▶️ Execute the SQL script from top to bottom.
-4. 🗄️ The `Data_Digger` database will be created.
-5. 📊 Four tables will be created with sample records.
-6. 🔍 Execute the SELECT queries to view the results.
+1.  Install **MySQL Server** and **MySQL Workbench**.
+2.  Start the MySQL Server service.
+3.  Open MySQL Workbench and connect to your local server.
+4.  Open the `Data_Digger.sql` script.
+5.  Review the SQL statements before execution.
+6.  Execute the script using the query editor.
+7.  Check the result grids to view the returned records.
+8.  Explore or modify the queries to practice SQL.
 
----
+## 📁 Project Files
 
-## ⚠️ Important Notes
+``` text
+Data-Digger/
+│
+├── Data_Digger.sql    # Database creation, sample data, and SQL queries
+└── README.md          # Project documentation
+```
 
-- 🔁 The script uses `CREATE TABLE IF NOT EXISTS`, so existing tables will not be recreated.
-- ⚠️ Running the INSERT statements more than once may cause duplicate Primary Key errors.
-- 🔗 Foreign Key constraints maintain relationships between the tables.
-- 🗑️ A customer or product cannot be deleted while related records still reference it.
-- 📅 The last 30 days query depends on the current date.
-- 💡 Run the SQL statements in the correct order to avoid errors.
+## ⚠️ Important Note Before Running
 
----
+The SQL script starts by dropping and recreating the database:
 
-## 📊 Project Features
+``` sql
+DROP DATABASE IF EXISTS data_digger;
+CREATE DATABASE data_digger;
+```
 
-- 👥 Customer Management
-- 🛒 Order Management
-- 📦 Product Management
-- 🧾 Order Details Management
-- 🔍 Data Filtering and Sorting
-- 📈 Aggregate Data Analysis
-- 🔐 Primary Key and Foreign Key Relationships
+This means an existing database named `data_digger` will be deleted and
+recreated when the script runs. **Back up any important data before
+executing the script.**
 
----
+## 🌱 Learning Outcomes
 
-## 🎓 Learning Outcomes
+After working with this project, learners can practice:
 
-Through this project, I practiced:
+-   Designing a relational database with multiple tables
+-   Creating primary-key and foreign-key relationships
+-   Performing CRUD operations
+-   Filtering and sorting records
+-   Using aggregate functions for data summaries
+-   Grouping records and joining related tables
+-   Understanding how customer, order, and product data are connected
+-   Executing SQL scripts in MySQL Workbench
 
-- Understanding relational databases.
-- Creating databases and tables using SQL.
-- Working with Primary Keys and Foreign Keys.
-- Performing CRUD operations.
-- Writing SQL queries with conditions.
-- Using aggregate functions.
-- Sorting, filtering, and grouping data.
-- Understanding relationships between database tables.
+## 🔮 Possible Future Enhancements
 
----
+The project can be extended with:
+
+-   📊 More analytical queries and reports
+-   🧮 Additional order and inventory summaries
+-   🧑‍💼 More customer and product sample records
+-   🗓️ Monthly or yearly order analysis
+-   🧾 Views for frequently used reports
+-   ⚙️ Stored procedures for repeated operations
+
+## 👩‍💻 Project Details
+
+  Detail         Information
+  -------------- ----------------------------------------------
+  Project Name   Data Digger
+  Project Type   MySQL Database Project
+  Domain         Customer, Order & Product Management
+  Database       MySQL
+  Tool           MySQL Workbench
+  Main Focus     SQL queries and relational database concepts
+
+------------------------------------------------------------------------
 
 ## connect with me:
 
   Linkedin : www.linkedin.com/in/nisha-sonkusre-283526415
   g-mail : nishasonkusre07@gmail.com
 
-## 👩‍💻 Project Information
+### ✨ Thank You for Visiting!
 
-- **Project Name:** Data Digger
-- **Database Name:** `Data_Digger`
-- **Database:** MySQL
-- **Language:** SQL
-- **Total Tables:** 4
-
----
-
-## ⭐ Thank You!
-
-Thank you for visiting my **Data Digger SQL Project**!
-
-💙 Keep Learning | 🚀 Keep Practicing | 📊 Keep Exploring SQL!
